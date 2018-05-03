@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { Subject } from 'rxjs/Subject';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import {
@@ -13,17 +13,32 @@ import {
   addHours
 } from 'date-fns';
 import {
+  CalendarCommonModule,
+  CalendarDayModule,
   CalendarEvent,
   CalendarEventTimesChangedEvent,
-  DAYS_OF_WEEK
+  CalendarDateFormatter
 } from 'angular-calendar';
 
 
+
+// import { CalendarDateFormatter, CalendarEventTitleFormatter } from 'angular-calendar';
+
+// import { CustomEventTitleFormatterProvider } from '../../providers/custom-event-title-formatter/custom-event-title-formatter';
+// import { CustomDateFormatterProvider } from '../../providers/custom-date-formatter/custom-date-formatter';
+/**
+ * Generated class for the CalendarPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-calendar',
+  templateUrl: 'calendar.html',
 })
-export class HomePage {
+export class CalendarPage {
 
   viewDate: Date = new Date();
   view = 'week';
@@ -64,8 +79,11 @@ export class HomePage {
     }
   ];
 
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
+  }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CalendarPage');
   }
 
   handleEvent(event: CalendarEvent): void {
@@ -113,7 +131,4 @@ export class HomePage {
     this.refresh.next();
   }
 
-  openPage() {
-    this.navCtrl.push("CalendarPage")
-  }
 }
